@@ -1,6 +1,9 @@
 # QuantumSimulator
-This repository contains the quantum simulator developed as part of project for QuantumAI.
-![quantum computer image](        )
+This repository contains the quantum simulator developed as part of project for QuantumAI.<br>
+
+<br>
+
+![quantum computer image](  https://github.com/Akash6300/QuantumSimulator/blob/52fdb143c18e0672a083c347660456b046bba703/QuantumComputer.jpg )
 
 ---
 This repository contains quantum simulator done in python as part of project for QuantumAI.<br>
