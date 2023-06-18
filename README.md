@@ -42,7 +42,7 @@ Quantum simulators come in various forms, ranging from software libraries and fr
 
 ---
   
-<br>
+
 ## what are the limitations of a quantum simulator?
 
 - **Computational Resources:** Simulating large-scale quantum systems can be computationally demanding and resource-intensive. As the number of qubits and the complexity of the quantum circuit increase, the computational requirements for simulating the system grow exponentially. This can limit the size and complexity of the simulations that can be performed on classical computers, restricting the ability to simulate real-world quantum systems accurately.
