@@ -8,6 +8,23 @@ This repository contains the quantum simulator developed as part of project for 
 ---
 This repository contains quantum simulator done in python as part of project for QuantumAI.<br>
 We are going to make a quantum simulator that mimics real hardware with the calibrations from IBM quantum computers.
+
+---
+## **_Directory structure_**
+- [IBM_quantum_devices_calibrations](https://github.com/Akash6300/QuantumSimulator/tree/main/IBM_quantum_devices_calibrations)
+- QSimulator (Main)
+  - [Gates.py](QSimulator/Gates.py)
+  - [QSimulator.py](QSimulator/QSimulator.py)(Main)
+  - [test_1.ipynb](QSimulator/test_1.ipynb)
+- single_qubit_simulator
+  - [single_qubit_gates.py](single_qubit_simulator/single_qubit_gates.py)
+  - [test.ipynb](single_qubit_simulator/test.ipynb)
+
+
+
+
+
+---
 ## what is a quantum computer?
 
 **A quantum computer is a type of computing system that utilizes principles from quantum mechanics to perform complex calculations and solve problems that are difficult or even impossible for classical computers. Unlike classical computers that use bits to represent information as either a 0 or a 1, quantum computers use quantum bits, or qubits, which can exist in superposition, representing a combination of 0 and 1 simultaneously. This unique property allows quantum computers to perform calculations in parallel, potentially leading to exponentially faster processing speeds for certain tasks.**
