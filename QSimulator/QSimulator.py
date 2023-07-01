@@ -6,8 +6,16 @@ from Gates import *
 import matplotlib.pyplot as plt
 
 class QCircuit:
+    '''
+    Create a new circuit.
+
+    A circuit is a list of instructions bound to some registers.
+
+    Args: 
+        n(int): number of qubits to be included in the circuit.
+    
+    '''
     def __init__(self,n:int) -> None:
-        '''number of qubits'''
         try:
             assert(n>0)
         except AssertionError:
@@ -27,30 +35,67 @@ class QCircuit:
 
 
     def x(self,qubit:int)->None:
+        '''
+        Args: 
+            qubit: The qubit to apply the gate to.
+        '''
         self.__gate_operations.append((qubit,'x'))
     
     def y(self,qubit:int)->None:
+        '''
+        Args: 
+            qubit: The qubit to apply the gate to.
+        '''
         self.__gate_operations.append((qubit,'y'))
 
     def z(self,qubit:int)->None:
+        '''
+        Args: 
+            qubit: The qubit to apply the gate to.
+        '''
         self.__gate_operations.append((qubit,'z'))
 
     def h(self,qubit:int)->None:
+        '''
+        Args: 
+            qubit: The qubit to apply the gate to.
+        '''
         self.__gate_operations.append((qubit,'h'))
 
     def s(self,qubit:int)->None:
+        '''
+        Args: 
+            qubit: The qubit to apply the gate to.
+        '''
         self.__gate_operations.append((qubit,'s'))
 
     def t(self,qubit:int)->None:
+        '''
+        Args: 
+            qubit: The qubit to apply the gate to.
+        '''
         self.__gate_operations.append((qubit,'t'))
 
     def sdg(self,qubit:int)->None:
+        '''
+        Args: 
+            qubit: The qubit to apply the gate to.
+        '''
         self.__gate_operations.append((qubit,'sdg'))
 
     def tdg(self,qubit:int)->None:
+        '''
+        Args: 
+            qubit: The qubit to apply the gate to.
+        '''
         self.__gate_operations.append((qubit,'tdg'))
 
     def cnot(self,control,target)->None:
+        '''
+        Args: 
+            control: The qubit used as the control.
+            target: The qubit targeted by the gate.
+        '''
         if(control>target):
             self.__gate_operations.append((control,'h'))
             self.__gate_operations.append((target,'h'))
@@ -61,6 +106,11 @@ class QCircuit:
             self.__gate_operations.append((control,target,'cx'))
 
     def cx(self,control,target)->None:
+        '''
+        Args: 
+            control: The qubit used as the control.
+            target: The qubit targeted by the gate.
+        '''
         if(control>target):
             self.__gate_operations.append((control,'h'))
             self.__gate_operations.append((target,'h'))
@@ -99,7 +149,7 @@ class QCircuit:
         index_list=index_list[0:-1]
         return index_list
     
-    def __inner_product_gates(self):
+    def __inner_product_gates(self)->dict:
         gate_list:dict=self.__depth()
         single_depth_operations=copy.deepcopy(self.ideal_dict)
         for i in range(self.n):
@@ -114,7 +164,7 @@ class QCircuit:
                 single_depth_operations[i]=gate('i')
         return single_depth_operations
     
-    def __final_tensor_gate(self):
+    def __final_tensor_gate(self)->np.array:
         final_gate_dict:dict=self.__inner_product_gates()
         length=self.n
         if length>1:
@@ -125,7 +175,7 @@ class QCircuit:
         elif(length==1):
             return final_gate_dict[0]
         
-    def return_cnot(self):
+    def __return_cnot(self)->np.array:
         i=self.__gate_operations[0]
         if(len(i)==3):
             control,target=i[0],i[1]
@@ -135,7 +185,14 @@ class QCircuit:
             print('error cnot in returning cnot')
             raise AttributeError
         
-    def measure(self,iters=1):
+    def measure(self,iters=1)->dict:
+        '''
+        Args:
+            iters: Number of times circuit has to be measured
+
+        Returns:
+            counts: counts of the measured circuit.
+        '''
         while(len(self.__gate_operations)!=0):
             if(len(self.__gate_operations[0])==2):
                 matrix=self.__final_tensor_gate()
@@ -144,7 +201,7 @@ class QCircuit:
                 self.statevector=self.statevector/norm
             if(len(self.__gate_operations)!=0):
                 if(len(self.__gate_operations[0])==3):
-                    matrix=self.return_cnot()
+                    matrix=self.__return_cnot()
                     self.statevector=np.inner(matrix,self.statevector)
                     norm=np.linalg.norm(self.statevector)
                     self.statevector=self.statevector/norm
@@ -160,7 +217,7 @@ class QCircuit:
         return dict(counts)
     
     @classmethod
-    def __info__(cls):
+    def __info__(cls)->None:
         print(f'Qsimulator')
         print(f'Maximum number of qubits = 14')
         print(f'Supported gate operations\n\t[pauli-X Gate,\n\tpauli-Y Gate,\n\tpauli-Z Gate,\n\tHadamard Gate,\n\tS Gate,\n\tT Gate,\n\tSDG Gate,\n\tTDG Gate]\n\t[CNOT Gate]')
